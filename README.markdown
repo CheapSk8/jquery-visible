@@ -14,25 +14,37 @@ This basic check will return `true` if the entire element is visible to the user
 
 	$('#element').visible();
 
-If you'd like to check for ANY PART of the element, you can use the following:
+To check to see if ANY PART of the element is visible, you can specify a paremeter ('partial').
 
-	$('#element').visible( true );
+	$('#element').visible({ partial: true });
 
 The plugin ignores the elements visibility by default. E.g., `display:none`, `visibility: hidden`, `offsetWidth` or `offsetHeight` is 0). 
 To filter on css visibility, you can use the jQuery `:visible` selector:
 
 	$('#element:visible').visible();
 
-Optionally, you can specify a second parameter to the `.visible` plugin, which will check whether the element is visible, as well as
-whether it's within the viewport too.
+Optionally, you can specify a parameter ('hidden') to the `.visible` plugin, which will check whether the element is visible, as well as whether it's within the viewport too.
 
-	$('#element:visible').visible( false, true );
+	$('#element:visible').visible({ hidden: true });
 
-Optionally, you can add a third parameter to specify the direction to check for visibility. This can either be 'horizontal', 'vertical' or 'both'.
+Optionally, you can add a parameter ('direction') to specify the direction to check for visibility. This can either be 'horizontal', 'vertical' or 'both'.
 Default is to 'both'.
 
-    $('#element').visible( false, false, 'horizontal' );
+	$('#element').visible({ direction: 'horizontal' });
 
+You can also check to see if the object is visible within a specific container by providing a parameter ('container'). The default container is the window.
+
+	$('#element').visible({ container: $('#parent') });
+	
+You can specify any combination of the parameters available when checking visibility. 
+
+To see if the item is partially visible within a parent:    
+
+	$('#element').visible({ partial: true, container: $('#parent') });
+
+To see if the item is completely horizontally visible within a parent:
+
+	$('#element').visible({ container: $('#parent'), direction: 'horizontal' });
 
 Demos
 -----
@@ -46,7 +58,3 @@ See the blog article:
 - [Checking if an element is visible on-screen using jQuery](https://www.customd.com/articles/13/checking-if-an-element-is-visible-on-screen-using-jquery)
 
 
-Limitations
------------
-
-Currently, this plugin will not check for visibility in nested scrollable areas, only on the main viewport (window object).
